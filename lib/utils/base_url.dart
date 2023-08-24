@@ -1,0 +1,1 @@
+const String mainUrl = "https://boxtube.net";
