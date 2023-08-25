@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:popcorn_sound_mobile/components/widgets/audioplayers/player_widget.dart';
 import 'package:popcorn_sound_mobile/components/widgets/audioplayers/stream_widget.dart';
 import 'package:popcorn_sound_mobile/components/widgets/cus_audioplayers/player.dart';
@@ -12,19 +13,28 @@ class SongVList extends StatefulWidget {
   final List<Song> items;
   final AudioPlayer audioPlayer;
 
-  const SongVList(
-      {Key? key,
-      required this.items,
-      required this.audioPlayer,})
-      : super(key: key);
+  const SongVList({
+    Key? key,
+    required this.items,
+    required this.audioPlayer,
+  }) : super(key: key);
 
   @override
   SongVListState createState() => SongVListState();
 }
 
 class SongVListState extends State<SongVList> {
-
   int currentPlay = -1;
+
+  // target url
+  void launchURL(String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      print('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +47,9 @@ class SongVListState extends State<SongVList> {
             padding: const EdgeInsets.only(top: ResDimens.d10),
             child: Container(
               decoration: BoxDecoration(
-                color: ResColors.black2,
-                borderRadius: BorderRadius.all(Radius.circular(ResDimens.d8))
-              ),
+                  color: ResColors.black2,
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(ResDimens.d8))),
               child: Padding(
                 padding: const EdgeInsets.all(ResDimens.d4),
                 child: Column(
@@ -56,7 +66,7 @@ class SongVListState extends State<SongVList> {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(ResDimens.d10)),
                                 child: Container(
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: Colors.black26,
                                   ),
@@ -64,20 +74,25 @@ class SongVListState extends State<SongVList> {
                                   height: 50,
                                   child: IconButton(
                                       onPressed: () async {
-                                        if(currentPlay == index){
-                                          print("Stop -----------------------------------");
+                                        if (currentPlay == index) {
+                                          print(
+                                              "Stop -----------------------------------");
                                           widget.audioPlayer.stop();
                                           setState(() {
                                             currentPlay = -1;
                                           });
                                         } else {
-                                          widget.audioPlayer.play(UrlSource(widget.items[index].ituneLink.toString()));
+                                          widget.audioPlayer.play(UrlSource(
+                                              widget.items[index].ituneLink
+                                                  .toString()));
                                           setState(() {
                                             currentPlay = index;
                                           });
                                         }
-
-                                      }, icon: (currentPlay == index) ? Icon(Icons.pause) : Icon(Icons.play_arrow)),
+                                      },
+                                      icon: (currentPlay == index)
+                                          ? Icon(Icons.pause)
+                                          : Icon(Icons.play_arrow)),
                                 ),
                               ),
                               ResSpace.w8(),
@@ -109,10 +124,34 @@ class SongVListState extends State<SongVList> {
                             ],
                           ),
                         ),
-                        Icon(Icons.menu),
+                        PopupMenuButton<String>(
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              value: widget.items[index].amazonLink,
+                              child: Text('Amazon'),
+                            ),
+                            PopupMenuItem(
+                              value: widget.items[index].youtubeLink,
+                              child: Text('Youtube'),
+                            ),
+                            PopupMenuItem(
+                              value: widget.items[index].spotifyLink,
+                              child: Text('Spotify'),
+                            ),
+                            PopupMenuItem(
+                              value: widget.items[index].appleLink,
+                              child: Text('Apple'),
+                            ),
+                          ],
+                          onSelected: (value) {
+                            launchURL(value);
+                          },
+                        ),
                       ],
                     ),
-                    (currentPlay == index) ? Player(player: widget.audioPlayer) :Container()
+                    (currentPlay == index)
+                        ? Player(player: widget.audioPlayer)
+                        : Container()
                   ],
                 ),
               ),

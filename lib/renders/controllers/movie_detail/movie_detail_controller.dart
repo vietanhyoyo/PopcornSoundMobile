@@ -20,7 +20,7 @@ class MovieDetailController extends GetxController {
 
   //Control
   RxBool isLoading = RxBool(true);
-  final player = AudioPlayer();
+  var player;
 
   @override
   void onInit() async {
@@ -31,10 +31,25 @@ class MovieDetailController extends GetxController {
       movie.value = arguments[0];
       getList(arguments[0].slug);
     }
+
     super.onInit();
   }
 
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+  }
+
+  @override
+  void onClose() {
+    player.dispose();
+    super.onClose();
+  }
+
   void getList(String slug) {
+    player = AudioPlayer();
+
     movieDetailRepository.getPlaylists(slug).then((res) {
       List data = res;
       List<Song> array = [];
@@ -67,6 +82,8 @@ class MovieDetailController extends GetxController {
   Future<void> playAudioFromUrl(String url) async {
     await player.play(UrlSource(url));
   }
+
+
 }
 
 class Song {
