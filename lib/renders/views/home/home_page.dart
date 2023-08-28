@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pagination_flutter/pagination.dart';
 import 'package:popcorn_sound_mobile/components/layouts/main_body/main_body.dart';
 import 'package:popcorn_sound_mobile/components/layouts/main_scaffold/main_scaffold.dart';
+import 'package:popcorn_sound_mobile/components/widgets/large_card_h_list/large_card_h_list.dart';
 import 'package:popcorn_sound_mobile/components/widgets/large_card_v_list/large_card_v_list.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
@@ -26,9 +27,9 @@ class HomePage extends GetView<HomeController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Discovery', style: ResText.titleLarge),
-                    // LargeCardHList(
-                    //   items: controller.movieList.value,
-                    // ),
+                    LargeCardHList(
+                      items: controller.hotFilmList.value,
+                    ),
                     // ResSpace.h8(),
                     // SmallCardHList(items: controller.movieList.value),
                     ResSpace.h8(),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
+import 'package:popcorn_sound_mobile/constants/res_text_style.dart';
 import 'package:popcorn_sound_mobile/renders/controllers/home/home_controller.dart';
 import 'package:popcorn_sound_mobile/setup/routes/routes.dart';
 
@@ -74,10 +76,20 @@ class LargeCardHListState extends State<LargeCardHList> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(widget.items[index].name),
+                                  Row(
+                                    children: [
+                                      const Icon(Icons.headphones, color: ResColors.grey, size: 16.0,),
+                                      Text(
+                                        ' ${widget.items[index].soundtrackCount} songs',
+                                        maxLines: 1,
+                                        style: ResText.grey,
+                                      ),
+                                    ],
+                                  ),
                                   GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(AppRoutes.movieDetail,
-                                          arguments: [widget.items[index].id]);
+                                      Get.toNamed(AppRoutes.filmDetail,
+                                          arguments: [widget.items[index]]);
                                     },
                                     child: Container(
                                       width: 50,

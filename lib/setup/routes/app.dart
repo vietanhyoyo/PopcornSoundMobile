@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
+import 'package:popcorn_sound_mobile/renders/bindings/film_detail/film_detail_binding.dart';
+import 'package:popcorn_sound_mobile/renders/bindings/film_list/film_list_binding.dart';
 import 'package:popcorn_sound_mobile/renders/bindings/home/home_binding.dart';
-import 'package:popcorn_sound_mobile/renders/bindings/movie_detail/movie_detail_binding.dart';
-import 'package:popcorn_sound_mobile/renders/bindings/movie_search/movie_search_binding.dart';
+import 'package:popcorn_sound_mobile/renders/bindings/search/film_search_binding.dart';
+import 'package:popcorn_sound_mobile/renders/views/film_detail/film_detail_page.dart';
+import 'package:popcorn_sound_mobile/renders/views/film_list/film_list_page.dart';
+import 'package:popcorn_sound_mobile/renders/views/film_search/film_search_page.dart';
 import 'package:popcorn_sound_mobile/renders/views/home/home_page.dart';
-import 'package:popcorn_sound_mobile/renders/views/movie_detail/movie_detail_page.dart';
-import 'package:popcorn_sound_mobile/renders/views/movie_search/movie_search_page.dart';
 import 'package:popcorn_sound_mobile/renders/views/welcome/welcome_page.dart';
 import 'package:popcorn_sound_mobile/setup/routes/routes.dart';
 
@@ -24,14 +26,19 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: AppRoutes.movieSearch,
-      page: () => const MovieSearchPage(),
-      binding: MovieSearchBinding(),
+      name: AppRoutes.filmSearch,
+      page: () => const FilmSearchPage(),
+      binding: FilmSearchBinding(),
     ),
     GetPage(
-      name: AppRoutes.movieDetail,
-      page: () => const MovieDetailPage(),
-      binding: MovieDetailBinding(),
+      name: AppRoutes.filmDetail,
+      page: () => const FilmDetailPage(),
+      binding: FilmDetailBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.filmList,
+      page: () => const FilmListPage(),
+      binding: FilmListBinding(),
     ),
   ];
 }

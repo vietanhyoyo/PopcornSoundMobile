@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:popcorn_sound_mobile/renders/controllers/home/home_controller.dart';
 import 'package:popcorn_sound_mobile/services/repository/home_repository.dart';
 
-class HomeController extends GetxController {
+class FilmListController extends GetxController {
   //Api define
   final HomeRepository homeRepository = Get.find<HomeRepository>();
 
@@ -76,21 +78,4 @@ class HomeController extends GetxController {
       print(e.toString());
     });
   }
-}
-
-class Movie {
-  final String id;
-  final String slug;
-  final String thumbnail;
-  final String name;
-  final String backdrop;
-  final int soundtrackCount;
-
-  Movie(
-      {required this.id,
-      required this.thumbnail,
-      required this.name,
-      required this.slug,
-      required this.backdrop,
-      required this.soundtrackCount});
 }

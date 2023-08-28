@@ -1,12 +1,12 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/renders/controllers/home/home_controller.dart';
-import 'package:popcorn_sound_mobile/services/repository/movie_detail_repository.dart';
+import 'package:popcorn_sound_mobile/services/repository/film_detail_repository.dart';
 
-class MovieDetailController extends GetxController {
+class FilmDetailController extends GetxController {
   //Api define
-  final MovieDetailRepository movieDetailRepository =
-      Get.find<MovieDetailRepository>();
+  final FilmDetailRepository filmDetailRepository =
+      Get.find<FilmDetailRepository>();
 
   //Data
   RxList<Song> songList = RxList([]);
@@ -50,7 +50,7 @@ class MovieDetailController extends GetxController {
   void getList(String slug) {
     player = AudioPlayer();
 
-    movieDetailRepository.getPlaylists(slug).then((res) {
+    filmDetailRepository.getSoundTrackOfPlaylist(slug).then((res) {
       List data = res;
       List<Song> array = [];
 

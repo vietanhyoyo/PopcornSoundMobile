@@ -1,13 +1,11 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:popcorn_sound_mobile/renders/controllers/film_detail/film_detail_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:popcorn_sound_mobile/components/widgets/audioplayers/player_widget.dart';
-import 'package:popcorn_sound_mobile/components/widgets/audioplayers/stream_widget.dart';
 import 'package:popcorn_sound_mobile/components/widgets/cus_audioplayers/player.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
 import 'package:popcorn_sound_mobile/constants/res_text_style.dart';
-import 'package:popcorn_sound_mobile/renders/controllers/movie_detail/movie_detail_controller.dart';
 
 class SongVList extends StatefulWidget {
   final List<Song> items;

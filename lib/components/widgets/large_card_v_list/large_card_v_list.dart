@@ -68,7 +68,7 @@ class LargeCardVListState extends State<LargeCardVList> {
       },
       child: GestureDetector(
         onTap: () {
-          Get.toNamed(AppRoutes.movieDetail,
+          Get.toNamed(AppRoutes.filmDetail,
               arguments: [widget.items[index]]);
         },
         child: ClipRRect(

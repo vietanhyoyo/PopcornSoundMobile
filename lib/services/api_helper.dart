@@ -48,13 +48,23 @@ class ApiHelper extends GetConnect {
     return get('posts/1');
   }
 
+  // // Get movie list for pagination
+  // Future<Response> getPlayLists(int pageIndex) {
+  //   return get('/api/playlists?type=movies&page=$pageIndex');
+  // }
+
   // Get movie list for pagination
-  Future<Response> getPlaylists(int pageIndex) {
-    return get('/api/playlists?type=movies&page=$pageIndex');
+  Future<Response> getPlayLists(int pageIndex) {
+    return get('/api/playlists?page=$pageIndex');
   }
 
   // Get movie list for pagination
   Future<Response> getSoundTrackOfPlaylist(String playListSlug) {
     return get('/api/soundtrack?playlists=$playListSlug');
+  }
+
+  // Get movie list for pagination
+  Future<Response> getHotFilms() {
+    return get('/api/playlists?type=movies&page=1');
   }
 }

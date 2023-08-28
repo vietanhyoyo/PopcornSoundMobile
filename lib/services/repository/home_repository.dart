@@ -6,8 +6,13 @@ class HomeRepository {
 
   HomeRepository(this._apiHelper);
 
-  Future<dynamic> getPlaylists(int pageIndex) async {
-    final data = await _apiHelper.getPlaylists(pageIndex);
+  Future<dynamic> getPlayLists(int pageIndex) async {
+    final data = await _apiHelper.getPlayLists(pageIndex);
+    return AppResponse.getResponse(data);
+  }
+
+  Future<dynamic> getHotFilms() async {
+    final data = await _apiHelper.getHotFilms();
     return AppResponse.getResponse(data);
   }
 }

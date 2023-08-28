@@ -7,16 +7,18 @@ class MainScaffold extends StatelessWidget {
   final Widget body;
   final int currentIndex;
   final bool? notSafeArea;
+  final Widget? appBar;
 
   const MainScaffold(
       {super.key,
       required this.body,
       required this.currentIndex,
-      this.notSafeArea = false});
+      this.notSafeArea = false, this.appBar});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar as PreferredSizeWidget?,
       body: notSafeArea == false ? SafeArea(child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: ResDimens.d16),
         child: body,
@@ -34,7 +36,7 @@ class MainScaffold extends StatelessWidget {
             if (index == 0) {
               Get.offNamed(AppRoutes.home);
             } else if (index == 1) {
-              Get.offNamed(AppRoutes.movieSearch);
+              Get.offNamed(AppRoutes.filmSearch);
             }
           },
           items: const [

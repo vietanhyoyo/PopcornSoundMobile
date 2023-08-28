@@ -5,10 +5,10 @@ import 'package:popcorn_sound_mobile/components/widgets/song_v_list/song_v_list.
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
 import 'package:popcorn_sound_mobile/constants/res_text_style.dart';
-import 'package:popcorn_sound_mobile/renders/controllers/movie_detail/movie_detail_controller.dart';
+import 'package:popcorn_sound_mobile/renders/controllers/film_detail/film_detail_controller.dart';
 
-class MovieDetailPage extends GetView<MovieDetailController> {
-  const MovieDetailPage({super.key});
+class FilmDetailPage extends GetView<FilmDetailController> {
+  const FilmDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
