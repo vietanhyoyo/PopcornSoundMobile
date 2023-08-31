@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/services/repository/home_repository.dart';
+import 'package:popcorn_sound_mobile/services/response/film_response.dart';
 
 class HomeController extends GetxController {
   //Api define
   final HomeRepository homeRepository = Get.find<HomeRepository>();
 
   //Data
-  RxList<Movie> movieList = RxList([]);
-  RxList<Movie> hotFilmList = RxList([]);
+  RxList<FilmResponse> movieList = RxList([]);
+  RxList<FilmResponse> hotFilmList = RxList([]);
 
   //Controller
   ScrollController scrollController = ScrollController();
@@ -27,18 +28,8 @@ class HomeController extends GetxController {
   void getMovieListFromPage(int page) {
     homeRepository.getPlayLists(page).then((res) {
       List dataMovieList = res["data"];
-      List<Movie> array = [];
 
-      dataMovieList.forEach((item) {
-        final Movie newMovie = Movie(
-            id: item["id"].toString(),
-            slug: item["slug"].toString(),
-            thumbnail: item["thumbnail"],
-            name: item["name"],
-            backdrop: item["backdrop"],
-            soundtrackCount: item["soundtrack_count"] ?? 0);
-        array.add(newMovie);
-      });
+      List<FilmResponse> array = FilmResponse.listFormJson(dataMovieList);
 
       lastPage.value = res["last_page"];
       movieList.value = array;
@@ -57,18 +48,9 @@ class HomeController extends GetxController {
   void getHotFilms() {
     homeRepository.getHotFilms().then((res) {
       List dataMovieList = res["data"];
-      List<Movie> array = [];
 
-      dataMovieList.forEach((item) {
-        final Movie newMovie = Movie(
-            id: item["id"].toString(),
-            slug: item["slug"].toString(),
-            thumbnail: item["thumbnail"],
-            name: item["name"],
-            backdrop: item["backdrop"],
-            soundtrackCount: item["soundtrack_count"] ?? 0);
-        array.add(newMovie);
-      });
+      List<FilmResponse> array = FilmResponse.listFormJson(dataMovieList);
+
       hotFilmList.value = array;
       isLoading.value = false;
     }).catchError((e) {
@@ -76,21 +58,4 @@ class HomeController extends GetxController {
       print(e.toString());
     });
   }
-}
-
-class Movie {
-  final String id;
-  final String slug;
-  final String thumbnail;
-  final String name;
-  final String backdrop;
-  final int soundtrackCount;
-
-  Movie(
-      {required this.id,
-      required this.thumbnail,
-      required this.name,
-      required this.slug,
-      required this.backdrop,
-      required this.soundtrackCount});
 }

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:popcorn_sound_mobile/components/widgets/no_data/no_data.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
 import 'package:popcorn_sound_mobile/constants/res_text_style.dart';
-import 'package:popcorn_sound_mobile/renders/controllers/home/home_controller.dart';
+import 'package:popcorn_sound_mobile/services/response/film_response.dart';
 import 'package:popcorn_sound_mobile/setup/routes/routes.dart';
 
 class LargeCardVList extends StatefulWidget {
-  final List<Movie> items;
+  final List<FilmResponse> items;
+  final String? title;
 
-  const LargeCardVList({Key? key, required this.items}) : super(key: key);
+  const LargeCardVList({Key? key, required this.items, this.title}) : super(key: key);
 
   @override
   LargeCardVListState createState() => LargeCardVListState();
@@ -30,9 +32,9 @@ class LargeCardVListState extends State<LargeCardVList> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Divider(),
-        const Text('Movie List'),
+        Text(widget.title ?? 'Movie List'),
         ResSpace.h8(),
-        ListView.builder(
+        widget.items.length > 0 ? ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: widget.items.length ~/ 2,
@@ -50,7 +52,7 @@ class LargeCardVListState extends State<LargeCardVList> {
               ),
             );
           },
-        ),
+        ) : NoData(),
       ],
     );
   }
@@ -83,7 +85,7 @@ class LargeCardVListState extends State<LargeCardVList> {
                 SizedBox(
                     width: width,
                     height: width,
-                    child: Image.network(widget.items[index].thumbnail,
+                    child: Image.network(widget.items[index].thumbnail!,
                         fit: BoxFit.cover)),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -92,7 +94,7 @@ class LargeCardVListState extends State<LargeCardVList> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.items[index].name,
+                        widget.items[index].name!,
                         maxLines: 2,
                       ),
                       ResSpace.h4(),

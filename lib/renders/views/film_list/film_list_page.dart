@@ -25,16 +25,16 @@ class FilmListPage extends GetView<FilmListController> {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Movies', style: ResText.titleLarge),
+                Text('${controller.pageTitle.value}s', style: ResText.titleLarge),
                 ResSpace.h8(),
-                LargeCardVList(items: controller.movieList.value),
-                Pagination(
+                LargeCardVList(title: "${controller.pageTitle.value} list" ,items: controller.movieList.value),
+                controller.movieList.value.length > 0 ? Pagination(
                   numOfPages: controller.lastPage.value,
                   selectedPage: controller.selectPage.value,
                   pagesVisible: 4,
                   onPageChanged: (page) {
                     controller.selectPage.value = page;
-                    controller.getMovieListFromPage(page);
+                    controller.getPlayListByType(page);
                   },
                   nextIcon: const Icon(
                     Icons.arrow_forward_ios,
@@ -79,7 +79,7 @@ class FilmListPage extends GetView<FilmListController> {
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                   ),
-                ),
+                ) : Container(),
                 ResSpace.h16(),
               ]),
         )),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:popcorn_sound_mobile/components/widgets/no_data/no_data.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
 import 'package:popcorn_sound_mobile/constants/res_text_style.dart';
-import 'package:popcorn_sound_mobile/renders/controllers/home/home_controller.dart';
+import 'package:popcorn_sound_mobile/services/response/film_response.dart';
 
 class SmallCardHList extends StatefulWidget {
-  final List<Movie> items;
+  final List<FilmResponse> items;
 
   const SmallCardHList({Key? key, required this.items}) : super(key: key);
 
@@ -22,7 +23,7 @@ class SmallCardHListState extends State<SmallCardHList> {
         ResSpace.h8(),
         SizedBox(
           height: 132,
-          child: ListView.builder(
+          child: widget.items.length > 0 ? ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: widget.items.length,
             itemBuilder: (context, index) {
@@ -43,13 +44,13 @@ class SmallCardHListState extends State<SmallCardHList> {
                               child: SizedBox(
                                 width: 100,
                                 height: 100,
-                                child: Image.network(widget.items[index].thumbnail,
+                                child: Image.network(widget.items[index].thumbnail!,
                                     fit: BoxFit.cover),
                               ),
                             ),
                             ResSpace.h4(),
                             Text(
-                              widget.items[index].name,
+                              widget.items[index].name!,
                               style: ResText.cardName,
                               maxLines: 2,
                             )
@@ -61,7 +62,7 @@ class SmallCardHListState extends State<SmallCardHList> {
                 ),
               );
             },
-          ),
+          ) : NoData(),
         ),
       ],
     );

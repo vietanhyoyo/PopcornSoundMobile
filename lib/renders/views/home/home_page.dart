@@ -28,13 +28,14 @@ class HomePage extends GetView<HomeController> {
                   children: [
                     const Text('Discovery', style: ResText.titleLarge),
                     LargeCardHList(
+                      title: "Hot",
                       items: controller.hotFilmList.value,
                     ),
                     // ResSpace.h8(),
                     // SmallCardHList(items: controller.movieList.value),
                     ResSpace.h8(),
-                    LargeCardVList(items: controller.movieList.value),
-                    Pagination(
+                    LargeCardVList(title: "Film list" ,items: controller.movieList.value),
+                    controller.movieList.value.length > 0 ? Pagination(
                       numOfPages: controller.lastPage.value,
                       selectedPage: controller.selectPage.value,
                       pagesVisible: 4,
@@ -85,7 +86,7 @@ class HomePage extends GetView<HomeController> {
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                       ),
-                    ),
+                    ) : Container(),
                     ResSpace.h16(),
                   ]),
             )),

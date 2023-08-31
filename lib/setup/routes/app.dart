@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/renders/bindings/film_detail/film_detail_binding.dart';
 import 'package:popcorn_sound_mobile/renders/bindings/film_list/film_list_binding.dart';
+import 'package:popcorn_sound_mobile/renders/bindings/film_search/film_search_binding.dart';
 import 'package:popcorn_sound_mobile/renders/bindings/home/home_binding.dart';
-import 'package:popcorn_sound_mobile/renders/bindings/search/film_search_binding.dart';
 import 'package:popcorn_sound_mobile/renders/views/film_detail/film_detail_page.dart';
 import 'package:popcorn_sound_mobile/renders/views/film_list/film_list_page.dart';
 import 'package:popcorn_sound_mobile/renders/views/film_search/film_search_page.dart';

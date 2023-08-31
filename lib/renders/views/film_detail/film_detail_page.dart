@@ -28,7 +28,7 @@ class FilmDetailPage extends GetView<FilmDetailController> {
                   SizedBox(
                     width: screenWidth,
                     height: screenHeight / 4,
-                    child: Image.network(controller.movie.value.backdrop,
+                    child: Image.network(controller.movie.value.backdrop!,
                         fit: BoxFit.cover),
                   ),
                   Positioned.fill(
@@ -61,7 +61,7 @@ class FilmDetailPage extends GetView<FilmDetailController> {
                             width: screenWidth / 2.2 - screenWidth * 0.025,
                             height:
                                 (5 / 4) * screenWidth / 2 - screenWidth * 0.005,
-                            child: Image.network(controller.movie.value.backdrop,
+                            child: Image.network(controller.movie.value.backdrop!,
                                 fit: BoxFit.cover),
                           ),
                         ),
@@ -72,7 +72,7 @@ class FilmDetailPage extends GetView<FilmDetailController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                controller.movie.value.name,
+                                controller.movie.value.name!,
                                 style: ResText.movieTitle,
                               ),
                                Row(

@@ -1,7 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
-import 'package:popcorn_sound_mobile/renders/controllers/home/home_controller.dart';
 import 'package:popcorn_sound_mobile/services/repository/film_detail_repository.dart';
+import 'package:popcorn_sound_mobile/services/response/film_response.dart';
+import 'package:popcorn_sound_mobile/services/response/song_response.dart';
 
 class FilmDetailController extends GetxController {
   //Api define
@@ -9,9 +10,9 @@ class FilmDetailController extends GetxController {
       Get.find<FilmDetailRepository>();
 
   //Data
-  RxList<Song> songList = RxList([]);
-  Rx<Movie> movie = Rx(Movie(
-      id: "1",
+  RxList<SongResponse> songList = RxList([]);
+  Rx<FilmResponse> movie = Rx(FilmResponse(
+      id: 1,
       slug: "",
       thumbnail: "",
       name: "",
@@ -35,46 +36,17 @@ class FilmDetailController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void dispose() {
-    player.dispose();
-    super.dispose();
-  }
-
-  @override
-  void onClose() {
-    player.dispose();
-    super.onClose();
-  }
-
   void getList(String slug) {
     player = AudioPlayer();
 
     filmDetailRepository.getSoundTrackOfPlaylist(slug).then((res) {
       List data = res;
-      List<Song> array = [];
-
-      data.forEach((item) {
-        final Song newSong = Song(
-          id: item["id"].toString(),
-          slug: item["slug"].toString(),
-          name: item["name"],
-          description: item["description"],
-          artist: item["artist"],
-          ituneLink: item["itune_link"],
-          amazonLink: item["amazon_link"],
-          appleLink: item["apple_link"],
-          spotifyLink: item["spotify_link"],
-          youtubeLink: item["youtube_link"],
-          isPlay: item["isPlay"],
-        );
-
-        array.add(newSong);
-      });
+      List<SongResponse> array = SongResponse.listFormJson(data);
 
       songList.value = array;
       isLoading.value = false;
     }).catchError((e) {
+      print(e);
       isLoading.value = false;
     });
   }
@@ -82,34 +54,4 @@ class FilmDetailController extends GetxController {
   Future<void> playAudioFromUrl(String url) async {
     await player.play(UrlSource(url));
   }
-
-
-}
-
-class Song {
-  final String id;
-  final String slug;
-  final String? description;
-  final String name;
-  final String artist;
-  final String? ituneLink;
-  final String? amazonLink;
-  final String? appleLink;
-  final String? spotifyLink;
-  final String? youtubeLink;
-  final int? isPlay;
-
-  Song({
-    this.amazonLink,
-    this.appleLink,
-    this.spotifyLink,
-    this.youtubeLink,
-    this.isPlay,
-    required this.slug,
-    this.description,
-    this.ituneLink,
-    required this.id,
-    required this.name,
-    required this.artist,
-  });
 }
