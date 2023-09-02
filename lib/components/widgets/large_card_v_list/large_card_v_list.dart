@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:popcorn_sound_mobile/components/widgets/no_data/no_data.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
 import 'package:popcorn_sound_mobile/constants/res_text_style.dart';
-import 'package:popcorn_sound_mobile/renders/controllers/home/home_controller.dart';
+import 'package:popcorn_sound_mobile/services/response/film_response.dart';
 import 'package:popcorn_sound_mobile/setup/routes/routes.dart';
 
 class LargeCardVList extends StatefulWidget {
-  final List<Movie> items;
+  final List<FilmResponse> items;
+  final String? title;
 
-  const LargeCardVList({Key? key, required this.items}) : super(key: key);
+  const LargeCardVList({Key? key, required this.items, this.title}) : super(key: key);
 
   @override
   LargeCardVListState createState() => LargeCardVListState();
 }
 
 class LargeCardVListState extends State<LargeCardVList> {
+  bool isDarkMode = Get.isDarkMode;
   int isOverlayVisible = -1;
   double width = 160.0;
   double height = 230.0;
@@ -30,9 +33,9 @@ class LargeCardVListState extends State<LargeCardVList> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Divider(),
-        const Text('Movie List'),
+        Text(widget.title ?? 'Movie List'),
         ResSpace.h8(),
-        ListView.builder(
+        widget.items.length > 0 ? ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: widget.items.length ~/ 2,
@@ -50,7 +53,7 @@ class LargeCardVListState extends State<LargeCardVList> {
               ),
             );
           },
-        ),
+        ) : NoData(),
       ],
     );
   }
@@ -71,45 +74,60 @@ class LargeCardVListState extends State<LargeCardVList> {
           Get.toNamed(AppRoutes.filmDetail,
               arguments: [widget.items[index]]);
         },
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(ResDimens.d10)),
-          child: Container(
-            width: width,
-            height: width + 90,
-            color: ResColors.black2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                    width: width,
-                    height: width,
-                    child: Image.network(widget.items[index].thumbnail,
-                        fit: BoxFit.cover)),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: ResDimens.d8, vertical: ResDimens.d4),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.items[index].name,
-                        maxLines: 2,
-                      ),
-                      ResSpace.h4(),
-                      Row(
-                        children: [
-                          const Icon(Icons.headphones, color: ResColors.grey, size: 16.0,),
-                          Text(
-                            ' ${widget.items[index].soundtrackCount} songs',
-                            maxLines: 1,
-                            style: ResText.grey,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              ],
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(ResDimens.d10)),
+            boxShadow: [isDarkMode ? BoxShadow() :
+            BoxShadow(
+              color: Colors.black12,
+              spreadRadius: 1,
+              blurRadius: 6,
+              offset: Offset(2, 2),
+            ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(ResDimens.d10)),
+            child: Container(
+              width: width,
+              height: width + 90,
+              decoration: BoxDecoration(
+                color: isDarkMode ? ResColors.black2 : ResColors.white,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                      width: width,
+                      height: width,
+                      child: Image.network(widget.items[index].thumbnail!,
+                          fit: BoxFit.cover)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: ResDimens.d8, vertical: ResDimens.d4),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.items[index].name!,
+                          maxLines: 2,
+                        ),
+                        ResSpace.h4(),
+                        Row(
+                          children: [
+                            Icon(Icons.headphones, color: isDarkMode ? ResColors.grey : ResColors.black2, size: 16.0,),
+                            Text(
+                              ' ${widget.items[index].soundtrackCount} songs',
+                              maxLines: 1,
+                              style: isDarkMode ? ResText.grey : ResText.black2,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

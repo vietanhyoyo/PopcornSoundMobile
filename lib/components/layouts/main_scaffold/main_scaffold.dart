@@ -37,6 +37,8 @@ class MainScaffold extends StatelessWidget {
               Get.offNamed(AppRoutes.home);
             } else if (index == 1) {
               Get.offNamed(AppRoutes.filmSearch);
+            } else if (index == 3) {
+              Get.offNamed(AppRoutes.setting);
             }
           },
           items: const [

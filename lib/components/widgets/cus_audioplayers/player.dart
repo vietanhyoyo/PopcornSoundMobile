@@ -28,13 +28,13 @@ class _PlayerState extends State<Player> {
   StreamSubscription? _playerCompleteSubscription;
   StreamSubscription? _playerStateChangeSubscription;
 
-  // bool get _isPlaying => _playerState == PlayerState.playing;
-  //
-  // bool get _isPaused => _playerState == PlayerState.paused;
-  //
-  // String get _durationText => _duration?.toString().split('.').first ?? '';
-  //
-  // String get _positionText => _position?.toString().split('.').first ?? '';
+  bool get _isPlaying => _playerState == PlayerState.playing;
+
+  bool get _isPaused => _playerState == PlayerState.paused;
+
+  String get _durationText => _duration?.toString().split('.').first ?? '';
+
+  String get _positionText => _position?.toString().split('.').first ?? '';
 
   AudioPlayer get player => widget.player;
 
@@ -77,9 +77,20 @@ class _PlayerState extends State<Player> {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).primaryColor;
-    return Column(
-      mainAxisSize: MainAxisSize.min,
+    return Stack(
       children: <Widget>[
+        Positioned(
+          right: 24,
+          bottom: 0,
+          child: Text(
+            _position != null
+                ? '$_positionText / $_durationText'
+                : _duration != null
+                ? _durationText
+                : '',
+            style: const TextStyle(fontSize: 13, color: ResColors.grey),
+          ),
+        ),
         SliderTheme(
           data: customSliderTheme,
           child: Slider(

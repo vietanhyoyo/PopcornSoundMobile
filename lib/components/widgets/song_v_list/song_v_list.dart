@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:popcorn_sound_mobile/renders/controllers/film_detail/film_detail_controller.dart';
+import 'package:get/get.dart';
+import 'package:popcorn_sound_mobile/services/response/song_response.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:popcorn_sound_mobile/components/widgets/cus_audioplayers/player.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
@@ -8,7 +9,7 @@ import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
 import 'package:popcorn_sound_mobile/constants/res_text_style.dart';
 
 class SongVList extends StatefulWidget {
-  final List<Song> items;
+  final List<SongResponse> items;
   final AudioPlayer audioPlayer;
 
   const SongVList({
@@ -23,6 +24,8 @@ class SongVList extends StatefulWidget {
 
 class SongVListState extends State<SongVList> {
   int currentPlay = -1;
+  int currentFocus = -1;
+  late List<SongResponse> songs;
 
   // target url
   void launchURL(String urlString) async {
@@ -35,17 +38,47 @@ class SongVListState extends State<SongVList> {
   }
 
   @override
+  void initState() {
+    songs = widget.items;
+
+    widget.audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
+      if (mounted) {
+        if (state != PlayerState.playing) {
+          setState(() {
+            currentPlay = -1;
+          });
+        }
+      }
+    });
+
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var isDarkMode = Get.isDarkMode;
+
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: widget.items.length,
+      itemCount: songs.length,
       itemBuilder: (context, index) {
         return Padding(
             padding: const EdgeInsets.only(top: ResDimens.d10),
             child: Container(
               decoration: BoxDecoration(
-                  color: ResColors.black2,
+                  color: isDarkMode ? ResColors.black2 : ResColors.white,
+                  boxShadow: [
+                    isDarkMode
+                        ? BoxShadow()
+                        : BoxShadow(
+                            color: Colors.black12,
+                            spreadRadius: 1,
+                            blurRadius: 6,
+                            offset: Offset(2, 2),
+                          ),
+                  ],
                   borderRadius:
                       BorderRadius.all(Radius.circular(ResDimens.d8))),
               child: Padding(
@@ -64,9 +97,9 @@ class SongVListState extends State<SongVList> {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(ResDimens.d10)),
                                 child: Container(
-                                  decoration: const BoxDecoration(
+                                  decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.black26,
+                                    color: isDarkMode ? Colors.black26 : Color(0xFFDDDDDD)
                                   ),
                                   width: 50,
                                   height: 50,
@@ -75,16 +108,29 @@ class SongVListState extends State<SongVList> {
                                         if (currentPlay == index) {
                                           print(
                                               "Stop -----------------------------------");
-                                          widget.audioPlayer.stop();
+                                          widget.audioPlayer.pause();
                                           setState(() {
                                             currentPlay = -1;
                                           });
                                         } else {
+                                          if (widget.items[index].ituneLink ==
+                                              null) {
+                                            Get.snackbar(
+                                              'Sorry!',
+                                              "This sound can't play",
+                                              snackPosition:
+                                                  SnackPosition.BOTTOM,
+                                              backgroundColor:
+                                                  ResColors.primary,
+                                            );
+                                            return;
+                                          }
                                           widget.audioPlayer.play(UrlSource(
                                               widget.items[index].ituneLink
                                                   .toString()));
                                           setState(() {
                                             currentPlay = index;
+                                            currentFocus = index;
                                           });
                                         }
                                       },
@@ -102,18 +148,22 @@ class SongVListState extends State<SongVList> {
                                     children: [
                                       Flexible(
                                           child: Text(
-                                        widget.items[index].name,
+                                        songs[index].name!,
                                         style: ResText.songName,
                                       )),
                                     ],
                                   ),
                                   Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       const Text(
-                                        "Artist ",
+                                        "Artist: ",
                                         style: ResText.grey,
                                       ),
-                                      Text("${widget.items[index].artist}"),
+                                      Expanded(
+                                          child:
+                                              Text("${songs[index].artist}")),
                                     ],
                                   ),
                                 ],
@@ -125,19 +175,19 @@ class SongVListState extends State<SongVList> {
                         PopupMenuButton<String>(
                           itemBuilder: (context) => [
                             PopupMenuItem(
-                              value: widget.items[index].amazonLink,
+                              value: songs[index].amazonLink,
                               child: Text('Amazon'),
                             ),
                             PopupMenuItem(
-                              value: widget.items[index].youtubeLink,
+                              value: songs[index].youtubeLink,
                               child: Text('Youtube'),
                             ),
                             PopupMenuItem(
-                              value: widget.items[index].spotifyLink,
+                              value: songs[index].spotifyLink,
                               child: Text('Spotify'),
                             ),
                             PopupMenuItem(
-                              value: widget.items[index].appleLink,
+                              value: songs[index].appleLink,
                               child: Text('Apple'),
                             ),
                           ],
@@ -147,7 +197,7 @@ class SongVListState extends State<SongVList> {
                         ),
                       ],
                     ),
-                    (currentPlay == index)
+                    (currentFocus == index)
                         ? Player(player: widget.audioPlayer)
                         : Container()
                   ],

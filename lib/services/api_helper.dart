@@ -38,33 +38,53 @@ class ApiHelper extends GetConnect {
     });
   }
 
-  // Test Post method
+  /// Test Post method
   Future<Response> getDataDemo(Map<String, dynamic> dataRequest) {
     return post('posts/1', dataRequest);
   }
 
-  // Test Get method
+  /// Test Get method
   Future<Response> getDataDemo2() {
     return get('posts/1');
   }
 
-  // // Get movie list for pagination
-  // Future<Response> getPlayLists(int pageIndex) {
-  //   return get('/api/playlists?type=movies&page=$pageIndex');
-  // }
+  /// Get movie list by type
+  Future<Response> getPlayListByType(String type,int pageIndex) {
+    return get('/api/playlists?type=${type}&page=$pageIndex');
+  }
 
-  // Get movie list for pagination
+  /// Get movie list for pagination
   Future<Response> getPlayLists(int pageIndex) {
     return get('/api/playlists?page=$pageIndex');
   }
 
-  // Get movie list for pagination
+  /// Get sound track of the film
   Future<Response> getSoundTrackOfPlaylist(String playListSlug) {
     return get('/api/soundtrack?playlists=$playListSlug');
   }
 
-  // Get movie list for pagination
+  /// Get popular film
   Future<Response> getHotFilms() {
-    return get('/api/playlists?type=movies&page=1');
+    return get('/api/playlists?type=movies&s=1');
+  }
+
+  /// Search film by name
+  Future<Response> searchByName(String name) {
+    return get('/api/playlists/search?name=${name}');
+  }
+
+  /// Get seasons
+  Future<Response> getSeasons(String playList) {
+    return get('/api/season?playlists=${playList}');
+  }
+
+  /// Get episodes
+  Future<Response> getEpisodes(String playList, String season) {
+    return get('/api/episode?playlists=${playList}&season=${season}');
+  }
+
+  /// Get soundtrack by episode and play list
+  Future<Response> getSoundByEp(String playList, String episode) {
+    return get('/api/soundtrack?playlists=${playList}&episode=${episode}');
   }
 }

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:popcorn_sound_mobile/components/widgets/no_data/no_data.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
 import 'package:popcorn_sound_mobile/constants/res_text_style.dart';
-import 'package:popcorn_sound_mobile/renders/controllers/home/home_controller.dart';
+import 'package:popcorn_sound_mobile/services/response/film_response.dart';
 import 'package:popcorn_sound_mobile/setup/routes/routes.dart';
 
 class LargeCardHList extends StatefulWidget {
-  final List<Movie> items;
+  final List<FilmResponse> items;
+  final String? title;
 
-  const LargeCardHList({Key? key, required this.items}) : super(key: key);
+  const LargeCardHList({Key? key, required this.items, this.title}) : super(key: key);
 
   @override
   LargeCardHListState createState() => LargeCardHListState();
@@ -22,14 +24,15 @@ class LargeCardHListState extends State<LargeCardHList> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Get.isDarkMode;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Hot Movies'),
+        Text(widget.title ?? 'Hot Movies'),
         ResSpace.h8(),
         SizedBox(
           height: height,
-          child: ListView.builder(
+          child: widget.items.length > 0 ? ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: widget.items.length,
             itemBuilder: (context, index) {
@@ -53,7 +56,7 @@ class LargeCardHListState extends State<LargeCardHList> {
                         child: SizedBox(
                           width: width,
                           height: height,
-                          child: Image.network(widget.items[index].thumbnail,
+                          child: Image.network(widget.items[index].thumbnail!,
                               fit: BoxFit.cover),
                         ),
                       ),
@@ -75,7 +78,7 @@ class LargeCardHListState extends State<LargeCardHList> {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(widget.items[index].name),
+                                  Text(widget.items[index].name!, style: ResText.white,),
                                   Row(
                                     children: [
                                       const Icon(Icons.headphones, color: ResColors.grey, size: 16.0,),
@@ -116,7 +119,7 @@ class LargeCardHListState extends State<LargeCardHList> {
                 ),
               );
             },
-          ),
+          ) : NoData(),
         ),
       ],
     );
