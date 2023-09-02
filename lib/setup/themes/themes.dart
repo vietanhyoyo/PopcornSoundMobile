@@ -9,9 +9,12 @@ final CustomTheme theme1 = CustomTheme(
       primaryColorLight: ResColors.primary,
       primaryColorDark: ResColors.primary,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: Colors.yellowAccent,
-        unselectedItemColor: Colors.grey,
+        backgroundColor: ResColors.white,
+        selectedItemColor: ResColors.primary,
+        unselectedItemColor: ResColors.black2,
       ),
+      textTheme: textLightTheme,
+      scaffoldBackgroundColor: ResColors.white1,
     ),
     darkTheme: ThemeData.dark().copyWith(
       scaffoldBackgroundColor: ResColors.black1,

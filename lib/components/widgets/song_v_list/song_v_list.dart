@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/services/response/song_response.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:popcorn_sound_mobile/components/widgets/cus_audioplayers/player.dart';
@@ -41,18 +42,23 @@ class SongVListState extends State<SongVList> {
     songs = widget.items;
 
     widget.audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
-      if (state != PlayerState.playing) {
-        setState(() {
-          currentPlay = -1;
-        });
+      if (mounted) {
+        if (state != PlayerState.playing) {
+          setState(() {
+            currentPlay = -1;
+          });
+        }
       }
     });
+
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var isDarkMode = Get.isDarkMode;
+
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -62,7 +68,17 @@ class SongVListState extends State<SongVList> {
             padding: const EdgeInsets.only(top: ResDimens.d10),
             child: Container(
               decoration: BoxDecoration(
-                  color: ResColors.black2,
+                  color: isDarkMode ? ResColors.black2 : ResColors.white,
+                  boxShadow: [
+                    isDarkMode
+                        ? BoxShadow()
+                        : BoxShadow(
+                            color: Colors.black12,
+                            spreadRadius: 1,
+                            blurRadius: 6,
+                            offset: Offset(2, 2),
+                          ),
+                  ],
                   borderRadius:
                       BorderRadius.all(Radius.circular(ResDimens.d8))),
               child: Padding(
@@ -81,9 +97,9 @@ class SongVListState extends State<SongVList> {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(ResDimens.d10)),
                                 child: Container(
-                                  decoration: const BoxDecoration(
+                                  decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.black26,
+                                    color: isDarkMode ? Colors.black26 : Color(0xFFDDDDDD)
                                   ),
                                   width: 50,
                                   height: 50,
@@ -97,6 +113,18 @@ class SongVListState extends State<SongVList> {
                                             currentPlay = -1;
                                           });
                                         } else {
+                                          if (widget.items[index].ituneLink ==
+                                              null) {
+                                            Get.snackbar(
+                                              'Sorry!',
+                                              "This sound can't play",
+                                              snackPosition:
+                                                  SnackPosition.BOTTOM,
+                                              backgroundColor:
+                                                  ResColors.primary,
+                                            );
+                                            return;
+                                          }
                                           widget.audioPlayer.play(UrlSource(
                                               widget.items[index].ituneLink
                                                   .toString()));
@@ -120,18 +148,22 @@ class SongVListState extends State<SongVList> {
                                     children: [
                                       Flexible(
                                           child: Text(
-                                            songs[index].name!,
+                                        songs[index].name!,
                                         style: ResText.songName,
                                       )),
                                     ],
                                   ),
                                   Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       const Text(
-                                        "Artist ",
+                                        "Artist: ",
                                         style: ResText.grey,
                                       ),
-                                      Text("${songs[index].artist}"),
+                                      Expanded(
+                                          child:
+                                              Text("${songs[index].artist}")),
                                     ],
                                   ),
                                 ],

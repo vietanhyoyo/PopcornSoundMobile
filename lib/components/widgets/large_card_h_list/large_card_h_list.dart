@@ -24,6 +24,7 @@ class LargeCardHListState extends State<LargeCardHList> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Get.isDarkMode;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -77,7 +78,7 @@ class LargeCardHListState extends State<LargeCardHList> {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(widget.items[index].name!),
+                                  Text(widget.items[index].name!, style: ResText.white,),
                                   Row(
                                     children: [
                                       const Icon(Icons.headphones, color: ResColors.grey, size: 16.0,),

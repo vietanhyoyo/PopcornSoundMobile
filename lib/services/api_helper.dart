@@ -72,4 +72,19 @@ class ApiHelper extends GetConnect {
   Future<Response> searchByName(String name) {
     return get('/api/playlists/search?name=${name}');
   }
+
+  /// Get seasons
+  Future<Response> getSeasons(String playList) {
+    return get('/api/season?playlists=${playList}');
+  }
+
+  /// Get episodes
+  Future<Response> getEpisodes(String playList, String season) {
+    return get('/api/episode?playlists=${playList}&season=${season}');
+  }
+
+  /// Get soundtrack by episode and play list
+  Future<Response> getSoundByEp(String playList, String episode) {
+    return get('/api/soundtrack?playlists=${playList}&episode=${episode}');
+  }
 }

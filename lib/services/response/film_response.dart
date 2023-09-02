@@ -7,6 +7,7 @@ class FilmResponse {
   String? name;
   String? backdrop;
   int? soundtrackCount;
+  String? description;
 
   FilmResponse(
       {this.id,
@@ -14,7 +15,8 @@ class FilmResponse {
       this.name,
       this.slug,
       this.backdrop,
-      this.soundtrackCount});
+      this.soundtrackCount,
+      this.description});
 
   FilmResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -23,6 +25,7 @@ class FilmResponse {
     name = json['name'];
     backdrop = json['backdrop'];
     soundtrackCount = json['soundtrack_count'];
+    description = json['description'] ?? "";
   }
 
   static List<FilmResponse> listFormJson(List list) {

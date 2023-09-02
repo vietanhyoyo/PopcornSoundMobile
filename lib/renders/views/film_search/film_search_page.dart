@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/components/layouts/main_scaffold/main_scaffold.dart';
+import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
 import 'package:popcorn_sound_mobile/constants/res_text_style.dart';
 import 'package:popcorn_sound_mobile/renders/controllers/film_search/film_search_controller.dart';
@@ -14,6 +15,7 @@ class FilmSearchPage extends GetView<FilmSearchController> {
 
   @override
   Widget build(BuildContext context) {
+    var isDarkMode = Get.isDarkMode;
     final screenWidth = MediaQuery.of(context).size.width;
 
     return MainScaffold(
@@ -23,7 +25,7 @@ class FilmSearchPage extends GetView<FilmSearchController> {
             children: [
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 ResSpace.h50(),
-                ResSpace.h16(),
+                ResSpace.h32(),
                 GestureDetector(
                   onTap: () {
                     Get.toNamed(AppRoutes.filmList, arguments: ['movies']);
@@ -36,6 +38,14 @@ class FilmSearchPage extends GetView<FilmSearchController> {
                         decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(ResDimens.d20),
+                          boxShadow: [isDarkMode ? BoxShadow() :
+                          BoxShadow(
+                            color: Colors.black12,
+                            spreadRadius: 1,
+                            blurRadius: 6,
+                            offset: Offset(2, 2),
+                          ),
+                          ],
                           gradient: LinearGradient(
                             colors: [
                               Colors.red.shade900,
@@ -46,6 +56,7 @@ class FilmSearchPage extends GetView<FilmSearchController> {
                             end: Alignment.bottomRight,
                             stops: [0.0, 0.7, 1.0],
                           ),
+
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(ResDimens.d16),
@@ -54,7 +65,7 @@ class FilmSearchPage extends GetView<FilmSearchController> {
                             children: [
                               Text(
                                 'Movies',
-                                style: ResText.titleLarge,
+                                style: ResText.whiteTitleLarge,
                               ),
                             ],
                           ),
@@ -81,6 +92,7 @@ class FilmSearchPage extends GetView<FilmSearchController> {
                                 Icon(
                                   Icons.movie_filter_outlined,
                                   size: 100,
+                                  color: ResColors.white,
                                 )
                               ],
                             ),
@@ -101,6 +113,14 @@ class FilmSearchPage extends GetView<FilmSearchController> {
                         decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(ResDimens.d20),
+                          boxShadow: [isDarkMode ? BoxShadow() :
+                          BoxShadow(
+                            color: Colors.black12,
+                            spreadRadius: 1,
+                            blurRadius: 6,
+                            offset: Offset(2, 2),
+                          ),
+                          ],
                           gradient: LinearGradient(
                             colors: [
                               Colors.blue.shade900,
@@ -118,7 +138,7 @@ class FilmSearchPage extends GetView<FilmSearchController> {
                             children: [
                               Text(
                                 'Shows',
-                                style: ResText.titleLarge,
+                                style: ResText.whiteTitleLarge,
                               ),
                             ],
                           ),
@@ -145,6 +165,7 @@ class FilmSearchPage extends GetView<FilmSearchController> {
                                 Icon(
                                   Icons.live_tv,
                                   size: 100,
+                                  color: ResColors.white,
                                 )
                               ],
                             ),

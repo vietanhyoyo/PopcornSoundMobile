@@ -1,7 +1,11 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/services/repository/film_detail_repository.dart';
+import 'package:popcorn_sound_mobile/services/response/episode_response.dart';
 import 'package:popcorn_sound_mobile/services/response/film_response.dart';
+import 'package:popcorn_sound_mobile/services/response/season_response.dart';
 import 'package:popcorn_sound_mobile/services/response/song_response.dart';
 
 class FilmDetailController extends GetxController {
@@ -11,7 +15,11 @@ class FilmDetailController extends GetxController {
 
   //Data
   RxList<SongResponse> songList = RxList([]);
-  Rx<FilmResponse> movie = Rx(FilmResponse(
+  RxList<EpisodeResponse> episodeList = RxList([]);
+  Rx<EpisodeResponse> episodeSelect = Rx(EpisodeResponse());
+  RxList<SeasonResponse> seasonList = RxList([]);
+  Rx<SeasonResponse> seasonSelect = Rx(SeasonResponse());
+  Rx<FilmResponse> film = Rx(FilmResponse(
       id: 1,
       slug: "",
       thumbnail: "",
@@ -20,35 +28,101 @@ class FilmDetailController extends GetxController {
       soundtrackCount: 0));
 
   //Control
+  final arguments = Get.arguments;
   RxBool isLoading = RxBool(true);
-  var player;
+  RxBool isSongLoading = RxBool(false);
+  late AudioPlayer player;
 
   @override
   void onInit() async {
-    // await player.play(UrlSource('https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/04/bd/34/04bd3447-b442-3120-8c57-e703ca07f3fd/mzaf_17159154013500109701.plus.aac.p.m4a'));
     isLoading.value = true;
-    final arguments = Get.arguments;
     if (arguments != null) {
-      movie.value = arguments[0];
+      film.value = arguments[0];
       getList(arguments[0].slug);
     }
 
     super.onInit();
   }
 
-  void getList(String slug) {
+  void getList(String slug) async {
     player = AudioPlayer();
 
-    filmDetailRepository.getSoundTrackOfPlaylist(slug).then((res) {
+    try {
+      var res = await filmDetailRepository.getSoundTrackOfPlaylist(slug);
       List data = res;
-      List<SongResponse> array = SongResponse.listFormJson(data);
 
-      songList.value = array;
-      isLoading.value = false;
-    }).catchError((e) {
+      if (data.isNotEmpty) {
+        List<SongResponse> array = SongResponse.listFormJson(data);
+        songList.value = array;
+      } else {
+        var res = await filmDetailRepository.getSeasons(slug);
+        List<SeasonResponse> data = SeasonResponse.listFormJson(res);
+
+        if (data.isNotEmpty) {
+          seasonList.value = data;
+          seasonSelect.value = data[0];
+          var res = await filmDetailRepository.getEpisodes(slug, data[0].slug ?? "");
+          List<EpisodeResponse> epis = EpisodeResponse.listFormJson(res);
+          if(epis.isNotEmpty){
+            episodeList.value = epis;
+            episodeSelect.value = epis[0];
+            await getSoundTrack(epis[0].slug ?? "");
+          }
+        }
+      }
+    } catch (e) {
       print(e);
+    } finally {
       isLoading.value = false;
-    });
+    }
+  }
+
+  Future<void> getSoundTrack(String episode) async {
+    isSongLoading.value = true;
+    try {
+      var res = await filmDetailRepository.getSoundByEp(film.value.slug ?? "", episode);
+      List<SongResponse> data = SongResponse.listFormJson(res);
+      songList.value = data;
+    } catch (e) {
+      print(e);
+    } finally {
+      isSongLoading.value = false;
+    }
+  }
+
+  Future<void> getEpBySeason(String season) async {
+    isLoading.value = true;
+    try {
+      var res = await filmDetailRepository.getEpisodes(film.value.slug ?? "", season);
+      List<EpisodeResponse> data = EpisodeResponse.listFormJson(res);
+      if(data.isNotEmpty){
+        episodeList.value = data;
+        episodeSelect.value = data[0];
+        await getSoundTrack(data[0].slug ?? "");
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  @override
+  void dispose(){
+    if(player == null){
+      return;
+    }
+      player.dispose();
+    super.dispose();
+  }
+
+  @override
+  void onClose(){
+    if(player == null){
+      return;
+    }
+      player.dispose();
+    super.onClose();
   }
 
   Future<void> playAudioFromUrl(String url) async {

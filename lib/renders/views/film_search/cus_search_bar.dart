@@ -20,69 +20,78 @@ class StateCusSearchBar extends State<CusSearchBar> {
 
   @override
   Widget build(BuildContext context) {
+    var isDarkMode = Get.isDarkMode;
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Stack(
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          decoration: BoxDecoration(
-            border: Border.all(color: ResColors.grey),
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  onChanged: (value) async {
-                    if (value == "") {
-                      setState(() {
-                        items = [];
-                      });
-                    } else if (value.length > 1) {
-                      if (widget.onSearch != null) {
-                        try {
-                          final res = await widget.onSearch!(value);
-                          setState(() {
-                            items = FilmResponse.listFormJson(res);
-                          });
-                        } catch (e) {
-                          print(e);
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: ResColors.grey),
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    onChanged: (value) async {
+                      if (value == "") {
+                        setState(() {
+                          items = [];
+                        });
+                      } else if (value.length > 1) {
+                        if (widget.onSearch != null) {
+                          try {
+                            final res = await widget.onSearch!(value);
+                            setState(() {
+                              items = FilmResponse.listFormJson(res);
+                            });
+                          } catch (e) {
+                            print(e);
+                          }
                         }
                       }
-                    }
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Search...',
-                    border: InputBorder.none,
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Search...',
+                      border: InputBorder.none,
+                    ),
                   ),
                 ),
-              ),
-              IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {},
-              ),
-            ],
+                IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {},
+                ),
+              ],
+            ),
           ),
         ),
         SizedBox(
-          height: screenHeight,
+          height: items.length == 0 ? 0 : screenHeight,
           child: Padding(
-            padding: const EdgeInsets.only(top: 66),
+            padding: const EdgeInsets.only(top: 82),
             child: ListView.builder(
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   return Container(
                     decoration: BoxDecoration(
-                      color: ResColors.black1,
+                      color: isDarkMode ? ResColors.black1 : ResColors.white1,
                       border: Border(
-                          top: BorderSide(color: ResColors.black2, width: 1)),
+                          top: BorderSide(
+                              color: isDarkMode
+                                  ? ResColors.black2
+                                  : ResColors.grey,
+                              width: 1)),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: GestureDetector(
                         onTap: () {
-                          Get.toNamed(AppRoutes.filmDetail, arguments: [items[index]]);
+                          Get.toNamed(AppRoutes.filmDetail,
+                              arguments: [items[index]]);
                         },
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
