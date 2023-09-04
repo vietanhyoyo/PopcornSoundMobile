@@ -46,7 +46,7 @@ dependencies:
   #using pause music onsite app
   window_manager: ^0.3.5
   #using open link
-  url_launcher: ^6.1.12
+  url_launcher: ^6.1.14
 
 dev_dependencies:
   flutter_test:
