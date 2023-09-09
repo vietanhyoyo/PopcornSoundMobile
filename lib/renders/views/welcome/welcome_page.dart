@@ -11,7 +11,7 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 2), () {
       Get.offNamed(AppRoutes.home);
     });
     return Scaffold(

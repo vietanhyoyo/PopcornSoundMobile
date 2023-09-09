@@ -42,7 +42,7 @@ class StateCusSearchBar extends State<CusSearchBar> {
                         setState(() {
                           items = [];
                         });
-                      } else if (value.length > 1) {
+                      } else if (value.length > 2) {
                         if (widget.onSearch != null) {
                           try {
                             final res = await widget.onSearch!(value);
@@ -94,20 +94,27 @@ class StateCusSearchBar extends State<CusSearchBar> {
                               arguments: [items[index]]);
                         },
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(ResDimens.d10)),
-                              child: SizedBox(
-                                width: 60,
-                                height: 60,
-                                child: Image.network(items[index].thumbnail!,
-                                    fit: BoxFit.cover),
+                            Expanded(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(ResDimens.d10)),
+                                    child: SizedBox(
+                                      width: 60,
+                                      height: 60,
+                                      child: Image.network(items[index].thumbnail!,
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  ResSpace.w8(),
+                                  Expanded(child: Text(items[index].name!)),
+                                ],
                               ),
                             ),
-                            ResSpace.w8(),
-                            Expanded(child: Text(items[index].name!))
+                            Icon(Icons.arrow_forward_ios),
                           ],
                         ),
                       ),

@@ -6,8 +6,10 @@ import 'package:popcorn_sound_mobile/services/response/film_response.dart';
 
 class SmallCardHList extends StatefulWidget {
   final List<FilmResponse> items;
+  final String? title;
 
-  const SmallCardHList({Key? key, required this.items}) : super(key: key);
+  const SmallCardHList({Key? key, required this.items, this.title})
+      : super(key: key);
 
   @override
   SmallCardHListState createState() => SmallCardHListState();
@@ -19,50 +21,53 @@ class SmallCardHListState extends State<SmallCardHList> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Hot Songs'),
+        Text(widget.title ?? 'Hot Songs'),
         ResSpace.h8(),
         SizedBox(
           height: 132,
-          child: widget.items.length > 0 ? ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: widget.items.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(right: ResDimens.d10),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+          child: widget.items.length > 0
+              ? ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: widget.items.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: ResDimens.d10),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Stack(
                           children: [
-                            ClipRRect(
-                              borderRadius: const BorderRadius.all(
-                                  Radius.circular(ResDimens.d10)),
-                              child: SizedBox(
-                                width: 100,
-                                height: 100,
-                                child: Image.network(widget.items[index].thumbnail!,
-                                    fit: BoxFit.cover),
+                            SizedBox(
+                              width: 100,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(ResDimens.d10)),
+                                    child: SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                      child: Image.network(
+                                          widget.items[index].thumbnail!,
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  ResSpace.h4(),
+                                  Text(
+                                    widget.items[index].name!,
+                                    style: ResText.cardName,
+                                    maxLines: 2,
+                                  )
+                                ],
                               ),
                             ),
-                            ResSpace.h4(),
-                            Text(
-                              widget.items[index].name!,
-                              style: ResText.cardName,
-                              maxLines: 2,
-                            )
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ) : NoData(),
+                    );
+                  },
+                )
+              : NoData(),
         ),
       ],
     );

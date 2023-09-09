@@ -7,6 +7,7 @@ import 'package:popcorn_sound_mobile/components/layouts/main_body/main_body.dart
 import 'package:popcorn_sound_mobile/components/layouts/main_scaffold/main_scaffold.dart';
 import 'package:popcorn_sound_mobile/components/widgets/large_card_h_list/large_card_h_list.dart';
 import 'package:popcorn_sound_mobile/components/widgets/large_card_v_list/large_card_v_list.dart';
+import 'package:popcorn_sound_mobile/components/widgets/small_card_h_list/small_card_h_list.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
 import 'package:popcorn_sound_mobile/constants/res_text_style.dart';
@@ -27,8 +28,8 @@ class HomePage extends GetView<HomeController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Discovery', style: ResText.titleLarge),
-                    LargeCardHList(
-                      title: "Hot",
+                    SmallCardHList(
+                      title: "Popular",
                       items: controller.hotFilmList.value,
                     ),
                     // ResSpace.h8(),
