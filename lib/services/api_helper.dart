@@ -65,7 +65,7 @@ class ApiHelper extends GetConnect {
 
   /// Get popular film
   Future<Response> getHotFilms() {
-    return get('/api/playlists?type=movies&s=1');
+    return get('/api/playlists?type=movies&s=4');
   }
 
   /// Search film by name
