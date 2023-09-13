@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/components/widgets/no_data/no_data.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
 import 'package:popcorn_sound_mobile/constants/res_text_style.dart';
 import 'package:popcorn_sound_mobile/services/response/film_response.dart';
+import 'package:popcorn_sound_mobile/setup/routes/routes.dart';
 
 class SmallCardHList extends StatefulWidget {
   final List<FilmResponse> items;
@@ -33,7 +35,10 @@ class SmallCardHListState extends State<SmallCardHList> {
                     return Padding(
                       padding: const EdgeInsets.only(right: ResDimens.d10),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed(AppRoutes.filmDetail,
+                              arguments: [widget.items[index]]);
+                        },
                         child: Stack(
                           children: [
                             SizedBox(
