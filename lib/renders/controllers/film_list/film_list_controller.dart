@@ -35,18 +35,7 @@ class FilmListController extends GetxController {
 
     filmListRepository.getPlayListByType(type,page).then((res) {
       List dataMovieList = res["data"];
-      List<FilmResponse> array = [];
-
-      dataMovieList.forEach((item) {
-        final FilmResponse newMovie = FilmResponse(
-            id: item["id"],
-            slug: item["slug"].toString(),
-            thumbnail: item["thumbnail"],
-            name: item["name"],
-            backdrop: item["backdrop"],
-            soundtrackCount: item["soundtrack_count"] ?? 0);
-        array.add(newMovie);
-      });
+      List<FilmResponse> array = FilmResponse.listFormJson(dataMovieList);
 
       lastPage.value = res["last_page"];
       movieList.value = array;
