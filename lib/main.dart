@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/setup/routes/app.dart';
 import 'package:popcorn_sound_mobile/setup/themes/appTheme.dart';
@@ -7,6 +8,7 @@ void main() {
   //Init flutter binding in project
   WidgetsFlutterBinding.ensureInitialized();
 
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 
