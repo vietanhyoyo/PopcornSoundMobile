@@ -47,6 +47,9 @@ dependencies:
   window_manager: ^0.3.5
   #using open link
   url_launcher: ^6.1.14
+  #firebase:
+  firebase_core: ^2.15.1
+  firebase_messaging: ^14.6.7
 
 dev_dependencies:
   flutter_test:

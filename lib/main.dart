@@ -1,12 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:popcorn_sound_mobile/services/firebase_api.dart';
 import 'package:popcorn_sound_mobile/setup/routes/app.dart';
 import 'package:popcorn_sound_mobile/setup/themes/appTheme.dart';
 
-void main() {
+void main() async {
   //Init flutter binding in project
   WidgetsFlutterBinding.ensureInitialized();
+
+  //Init Firebase service
+  await Firebase.initializeApp();
+  await FirebaseApi().initNotifications();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
