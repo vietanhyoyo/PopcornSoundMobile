@@ -1,4 +1,4 @@
-package com.example.popcorn_sound_mobile
+package com.popcorn.soundtrack
 
 import io.flutter.embedding.android.FlutterActivity
 
