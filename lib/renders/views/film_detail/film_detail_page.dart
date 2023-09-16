@@ -68,7 +68,7 @@ class FilmDetailPage extends GetView<FilmDetailController> {
                                 height: (5 / 4) * screenWidth / 2 -
                                     screenWidth * 0.005,
                                 child: Image.network(
-                                    controller.film.value.backdrop!,
+                                    controller.film.value.thumbnail!,
                                     fit: BoxFit.cover),
                               ),
                             ),
