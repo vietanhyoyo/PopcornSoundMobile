@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pagination_flutter/pagination.dart';
 import 'package:popcorn_sound_mobile/components/layouts/main_body/main_body.dart';
 import 'package:popcorn_sound_mobile/components/layouts/main_scaffold/main_scaffold.dart';
-import 'package:popcorn_sound_mobile/components/widgets/large_card_h_list/large_card_h_list.dart';
 import 'package:popcorn_sound_mobile/components/widgets/large_card_v_list/large_card_v_list.dart';
 import 'package:popcorn_sound_mobile/components/widgets/small_card_h_list/small_card_h_list.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
@@ -27,6 +27,11 @@ class HomePage extends GetView<HomeController> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // controller.isAdLoaded.value ? SizedBox(
+                    //   height: controller.bannerAd.size.height.toDouble(),
+                    //   width: controller.bannerAd.size.width.toDouble(),
+                    //   child: AdWidget(ad: controller.bannerAd),
+                    // ) : SizedBox(),
                     const Text('Discovery', style: ResText.titleLarge),
                     SmallCardHList(
                       title: "Popular",

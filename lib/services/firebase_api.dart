@@ -7,7 +7,9 @@ class FirebaseApi {
     await _firebaseMessaging.requestPermission();
     final fCMToken = await _firebaseMessaging.getToken();
     print("Token: $fCMToken");
-    
+
+    await _firebaseMessaging.subscribeToTopic("all");
+
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   }
 }
