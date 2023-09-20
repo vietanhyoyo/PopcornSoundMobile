@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/services/response/song_response.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -101,8 +102,8 @@ class SongVListState extends State<SongVList> {
                                     shape: BoxShape.circle,
                                     color: isDarkMode ? Colors.black26 : Color(0xFFDDDDDD)
                                   ),
-                                  width: 50,
-                                  height: 50,
+                                  width: 50.sp,
+                                  height: 50.sp,
                                   child: IconButton(
                                       onPressed: () async {
                                         if (currentPlay == index) {
@@ -135,8 +136,8 @@ class SongVListState extends State<SongVList> {
                                         }
                                       },
                                       icon: (currentPlay == index)
-                                          ? Icon(Icons.pause)
-                                          : Icon(Icons.play_arrow)),
+                                          ? Icon(Icons.pause, size: 24.sp,)
+                                          : Icon(Icons.play_arrow, size: 24.sp,)),
                                 ),
                               ),
                               ResSpace.w8(),

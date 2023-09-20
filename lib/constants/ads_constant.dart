@@ -4,14 +4,14 @@ class AdsConstant {
 
   static final AdsKey _androidAds = AdsKey(
     appId: "ca-app-pub-2054952505259569~2272052570",
-    interstitialAds: "ca-app-pub-20549525052595699/659302597",
     openAppAds: "ca-app-pub-2054952505259569/7659825216",
+    interstitialAds: "ca-app-pub-2054952505259569/9659302597",
   );
 
   static final AdsKey _iOSAds = AdsKey(
     appId: "ca-app-pub-2054952505259569~1491084250",
-    interstitialAds: "ca-app-pub-2054952505259569/3131468987",
     openAppAds: "ca-app-pub-2054952505259569/4367694882",
+    interstitialAds: "ca-app-pub-2054952505259569/3131468987",
   );
 
   static final String testKey = "ca-app-pub-3940256099942544/4411468910";

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
-import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
-import 'package:popcorn_sound_mobile/setup/routes/routes.dart';
 
 class MainBody extends StatelessWidget {
   final Widget child;

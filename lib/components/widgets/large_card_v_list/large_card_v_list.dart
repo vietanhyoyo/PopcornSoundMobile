@@ -1,4 +1,6 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/components/widgets/no_data/no_data.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
@@ -18,6 +20,7 @@ class LargeCardVList extends StatefulWidget {
 }
 
 class LargeCardVListState extends State<LargeCardVList> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   bool isDarkMode = Get.isDarkMode;
   int isOverlayVisible = -1;
   double width = 160.0;
@@ -71,6 +74,10 @@ class LargeCardVListState extends State<LargeCardVList> {
       },
       child: GestureDetector(
         onTap: () {
+          analytics.setAnalyticsCollectionEnabled(true);
+          print("Detail: ${widget.items[index].slug}");
+          analytics.logEvent(name: "detail");
+
           Get.toNamed(AppRoutes.filmDetail,
               arguments: [widget.items[index]]);
         },
@@ -90,7 +97,7 @@ class LargeCardVListState extends State<LargeCardVList> {
             borderRadius: const BorderRadius.all(Radius.circular(ResDimens.d10)),
             child: Container(
               width: width,
-              height: width + 90,
+              height: width + 90.h,
               decoration: BoxDecoration(
                 color: isDarkMode ? ResColors.black2 : ResColors.white,
               ),
@@ -115,7 +122,7 @@ class LargeCardVListState extends State<LargeCardVList> {
                         ResSpace.h4(),
                         Row(
                           children: [
-                            Icon(Icons.headphones, color: isDarkMode ? ResColors.grey : ResColors.black2, size: 16.0,),
+                            Icon(Icons.headphones, color: isDarkMode ? ResColors.grey : ResColors.black2, size: 16.0.w,),
                             Text(
                               ' ${widget.items[index].soundtrackCount} songs',
                               maxLines: 1,

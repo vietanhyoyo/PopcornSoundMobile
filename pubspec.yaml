@@ -48,10 +48,13 @@ dependencies:
   #using open link
   url_launcher: ^6.1.14
   #firebase:
-  firebase_core: ^2.15.1
+  firebase_core: ^2.16.0
   firebase_messaging: ^14.6.7
+  firebase_analytics: ^10.5.0
   #advertising
   google_mobile_ads: ^3.0.0
+  #size
+  flutter_screenutil: ^5.9.0
 
 dev_dependencies:
   flutter_test:
