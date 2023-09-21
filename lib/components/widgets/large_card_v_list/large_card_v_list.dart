@@ -1,4 +1,3 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,7 +19,7 @@ class LargeCardVList extends StatefulWidget {
 }
 
 class LargeCardVListState extends State<LargeCardVList> {
-  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
   bool isDarkMode = Get.isDarkMode;
   int isOverlayVisible = -1;
   double width = 160.0;
@@ -64,77 +63,62 @@ class LargeCardVListState extends State<LargeCardVList> {
   Widget _buildImage(int index, double width) {
     return GestureDetector(
       onTap: () {
-        setState(() {
-          if (isOverlayVisible == index) {
-            isOverlayVisible = -1;
-          } else {
-            isOverlayVisible = index;
-          }
-        });
+        Get.toNamed(AppRoutes.filmDetail,
+            arguments: [widget.items[index]]);
       },
-      child: GestureDetector(
-        onTap: () {
-          analytics.setAnalyticsCollectionEnabled(true);
-          print("Detail: ${widget.items[index].slug}");
-          analytics.logEvent(name: "detail");
-
-          Get.toNamed(AppRoutes.filmDetail,
-              arguments: [widget.items[index]]);
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(ResDimens.d10)),
-            boxShadow: [isDarkMode ? BoxShadow() :
-            BoxShadow(
-              color: Colors.black12,
-              spreadRadius: 1,
-              blurRadius: 6,
-              offset: Offset(2, 2),
-            ),
-            ],
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(ResDimens.d10)),
+          boxShadow: [isDarkMode ? BoxShadow() :
+          BoxShadow(
+            color: Colors.black12,
+            spreadRadius: 1,
+            blurRadius: 6,
+            offset: Offset(2, 2),
           ),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(ResDimens.d10)),
-            child: Container(
-              width: width,
-              height: width + 90.h,
-              decoration: BoxDecoration(
-                color: isDarkMode ? ResColors.black2 : ResColors.white,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                      width: width,
-                      height: width,
-                      child: Image.network(widget.items[index].thumbnail!,
-                          fit: BoxFit.cover)),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: ResDimens.d8, vertical: ResDimens.d4),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.items[index].name!,
-                          maxLines: 2,
-                        ),
-                        ResSpace.h4(),
-                        Row(
-                          children: [
-                            Icon(Icons.headphones, color: isDarkMode ? ResColors.grey : ResColors.black2, size: 16.0.w,),
-                            Text(
-                              ' ${widget.items[index].soundtrackCount} songs',
-                              maxLines: 1,
-                              style: isDarkMode ? ResText.grey : ResText.black2,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(ResDimens.d10)),
+          child: Container(
+            width: width,
+            height: width + 90.h,
+            decoration: BoxDecoration(
+              color: isDarkMode ? ResColors.black2 : ResColors.white,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                    width: width,
+                    height: width,
+                    child: Image.network(widget.items[index].thumbnail!,
+                        fit: BoxFit.cover)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: ResDimens.d8, vertical: ResDimens.d4),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.items[index].name!,
+                        maxLines: 2,
+                      ),
+                      ResSpace.h4(),
+                      Row(
+                        children: [
+                          Icon(Icons.headphones, color: isDarkMode ? ResColors.grey : ResColors.black2, size: 16.0.w,),
+                          Text(
+                            ' ${widget.items[index].soundtrackCount} songs',
+                            maxLines: 1,
+                            style: isDarkMode ? ResText.grey : ResText.black2,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
         ),

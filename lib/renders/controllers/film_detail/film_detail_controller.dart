@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/services/repository/film_detail_repository.dart';
 import 'package:popcorn_sound_mobile/services/response/episode_response.dart';
@@ -28,6 +29,7 @@ class FilmDetailController extends GetxController {
       soundtrackCount: 0));
 
   //Control
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   final arguments = Get.arguments;
   RxBool isLoading = RxBool(true);
   RxBool isSongLoading = RxBool(false);
@@ -39,7 +41,16 @@ class FilmDetailController extends GetxController {
     if (arguments != null) {
       film.value = arguments[0];
       getList(arguments[0].slug);
+
+      analytics.setAnalyticsCollectionEnabled(true);
+      analytics.logEvent(name: "app_detail_film", parameters: {
+        "film": arguments[0].slug,
+      });
     }
+
+    analytics.logEvent(name: "app_detail_film", parameters: {
+      "film": "No data",
+    });
 
     super.onInit();
   }

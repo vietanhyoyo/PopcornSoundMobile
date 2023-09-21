@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +19,7 @@ class CusSearchBar extends StatefulWidget {
 
 class StateCusSearchBar extends State<CusSearchBar> {
   List<FilmResponse> items = [];
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +93,11 @@ class StateCusSearchBar extends State<CusSearchBar> {
                       padding: EdgeInsets.symmetric(vertical: 8.0.sp),
                       child: GestureDetector(
                         onTap: () {
+                          analytics.setAnalyticsCollectionEnabled(true);
+                          analytics.logEvent(name: "search_film", parameters: {
+                            "film": items[index].slug,
+                          });
+
                           Get.toNamed(AppRoutes.filmDetail,
                               arguments: [items[index]]);
                         },

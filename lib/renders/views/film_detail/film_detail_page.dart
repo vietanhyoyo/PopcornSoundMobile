@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -64,10 +65,10 @@ class FilmDetailPage extends GetView<FilmDetailController> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.all(
-                                  Radius.circular(screenWidth * 0.05)),
+                                  Radius.circular(screenWidth * 0.03)),
                               child: SizedBox(
                                 width: screenWidth / 2.2 - screenWidth * 0.025,
-                                height: (5 / 4) * screenWidth / 2 -
+                                height: (9 / 8) * screenWidth / 2 -
                                     screenWidth * 0.005,
                                 child: Image.network(
                                     controller.film.value.thumbnail!,
