@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/components/layouts/main_scaffold/main_scaffold.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
@@ -34,7 +35,7 @@ class FilmSearchPage extends GetView<FilmSearchController> {
                     children: [
                       Container(
                         width: screenWidth - ResDimens.d16,
-                        height: 160,
+                        height: 160.sp,
                         decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(ResDimens.d20),
@@ -76,22 +77,22 @@ class FilmSearchPage extends GetView<FilmSearchController> {
                         right: 0,
                         bottom: 0,
                         child: CustomPaint(
-                          size: Size(100, 150),
+                          size: Size(100.sp, 150.sp),
                           painter: CustomCardShapePainter(
-                              24, Colors.redAccent, Colors.orangeAccent),
+                              24.sp, Colors.redAccent, Colors.orangeAccent),
                         ),
                       ),
                       Positioned(
                           right: 0,
                           bottom: 0,
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 16),
+                            padding: EdgeInsets.only(right: 16.sp),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Icon(
                                   Icons.movie_filter_outlined,
-                                  size: 100,
+                                  size: 100.sp,
                                   color: ResColors.white,
                                 )
                               ],
@@ -109,7 +110,7 @@ class FilmSearchPage extends GetView<FilmSearchController> {
                     children: [
                       Container(
                         width: screenWidth - ResDimens.d16,
-                        height: 160,
+                        height: 160.sp,
                         decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(ResDimens.d20),
@@ -149,22 +150,22 @@ class FilmSearchPage extends GetView<FilmSearchController> {
                         right: 0,
                         bottom: 0,
                         child: CustomPaint(
-                          size: Size(100, 150),
+                          size: Size(100.sp, 150.sp),
                           painter: CustomCardShapePainter(
-                              24, Colors.purple.shade900, Colors.blue.shade900),
+                              24.sp, Colors.purple.shade900, Colors.blue.shade900),
                         ),
                       ),
                       Positioned(
                           right: 0,
                           bottom: 0,
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 16),
+                            padding: EdgeInsets.only(right: 16.sp),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Icon(
                                   Icons.live_tv,
-                                  size: 100,
+                                  size: 100.sp,
                                   color: ResColors.white,
                                 )
                               ],

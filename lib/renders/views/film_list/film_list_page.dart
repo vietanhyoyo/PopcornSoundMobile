@@ -1,6 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pagination_flutter/pagination.dart';
 import 'package:popcorn_sound_mobile/components/layouts/main_body/main_body.dart';
@@ -36,27 +37,27 @@ class FilmListPage extends GetView<FilmListController> {
                     controller.selectPage.value = page;
                     controller.getPlayListByType(page);
                   },
-                  nextIcon: const Icon(
+                  nextIcon:  Icon(
                     Icons.arrow_forward_ios,
                     color: ResColors.grey,
-                    size: 14,
+                    size: 14.sp,
                   ),
-                  previousIcon: const Icon(
+                  previousIcon:  Icon(
                     Icons.arrow_back_ios,
                     color: ResColors.grey,
-                    size: 14,
+                    size: 14.sp,
                   ),
-                  activeTextStyle: const TextStyle(
+                  activeTextStyle: TextStyle(
                     color: Colors.white,
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w700,
                   ),
                   activeBtnStyle: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsets>(
-                      const EdgeInsets.symmetric(horizontal: 2.0),
+                       EdgeInsets.symmetric(horizontal: 2.0.sp),
                     ),
                     minimumSize: MaterialStateProperty.all<Size>(
-                      const Size(40.0, 40.0),
+                       Size(40.0.sp, 40.0.sp),
                     ),
                     backgroundColor:
                     MaterialStateProperty.all(ResColors.primary),
@@ -68,15 +69,15 @@ class FilmListPage extends GetView<FilmListController> {
                   ),
                   inactiveBtnStyle: ButtonStyle(
                     minimumSize: MaterialStateProperty.all<Size>(
-                      const Size(40.0, 40.0),
+                       Size(40.0.sp, 40.0.sp),
                     ),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(38),
                     )),
                   ),
-                  inactiveTextStyle: const TextStyle(
+                  inactiveTextStyle: TextStyle(
                     color: ResColors.grey,
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ) : Container(),

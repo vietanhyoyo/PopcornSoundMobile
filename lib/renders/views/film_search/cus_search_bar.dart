@@ -1,5 +1,7 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
@@ -17,6 +19,7 @@ class CusSearchBar extends StatefulWidget {
 
 class StateCusSearchBar extends State<CusSearchBar> {
   List<FilmResponse> items = [];
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +29,9 @@ class StateCusSearchBar extends State<CusSearchBar> {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 16.0),
+          padding: EdgeInsets.only(top: 16.0.sp),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: EdgeInsets.symmetric(horizontal: 16.0.sp),
             decoration: BoxDecoration(
               border: Border.all(color: ResColors.grey),
               borderRadius: BorderRadius.circular(30.0),
@@ -62,7 +65,7 @@ class StateCusSearchBar extends State<CusSearchBar> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.search),
+                  icon: Icon(Icons.search, size: 24.sp,),
                   onPressed: () {},
                 ),
               ],
@@ -72,7 +75,7 @@ class StateCusSearchBar extends State<CusSearchBar> {
         SizedBox(
           height: items.length == 0 ? 0 : screenHeight,
           child: Padding(
-            padding: const EdgeInsets.only(top: 82),
+            padding: EdgeInsets.only(top: 82.sp),
             child: ListView.builder(
                 itemCount: items.length,
                 itemBuilder: (context, index) {
@@ -87,9 +90,14 @@ class StateCusSearchBar extends State<CusSearchBar> {
                               width: 1)),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      padding: EdgeInsets.symmetric(vertical: 8.0.sp),
                       child: GestureDetector(
                         onTap: () {
+                          analytics.setAnalyticsCollectionEnabled(true);
+                          analytics.logEvent(name: "search_film", parameters: {
+                            "film": items[index].slug,
+                          });
+
                           Get.toNamed(AppRoutes.filmDetail,
                               arguments: [items[index]]);
                         },
@@ -103,8 +111,8 @@ class StateCusSearchBar extends State<CusSearchBar> {
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(ResDimens.d10)),
                                     child: SizedBox(
-                                      width: 60,
-                                      height: 60,
+                                      width: 60.sp,
+                                      height: 60.sp,
                                       child: Image.network(items[index].thumbnail!,
                                           fit: BoxFit.cover),
                                     ),

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 
 class Player extends StatefulWidget {
@@ -77,40 +78,46 @@ class _PlayerState extends State<Player> {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).primaryColor;
-    return Stack(
-      children: <Widget>[
-        Positioned(
-          right: 24,
-          bottom: 0,
-          child: Text(
-            _position != null
-                ? '$_positionText / $_durationText'
-                : _duration != null
-                ? _durationText
-                : '',
-            style: const TextStyle(fontSize: 13, color: ResColors.grey),
+    return Container(
+      padding: EdgeInsets.only(bottom: 3.0.sp),
+      child: Stack(
+        children: <Widget>[
+          Positioned(
+            right: 24,
+            bottom: 0,
+            child: Text(
+              _position != null
+                  ? '$_positionText / $_durationText'
+                  : _duration != null
+                  ? _durationText
+                  : '',
+              style: TextStyle(fontSize: 13.sp, color: ResColors.grey),
+            ),
           ),
-        ),
-        SliderTheme(
-          data: customSliderTheme,
-          child: Slider(
-            onChanged: (v) {
-              final duration = _duration;
-              if (duration == null) {
-                return;
-              }
-              final position = v * duration.inMilliseconds;
-              player.seek(Duration(milliseconds: position.round()));
-            },
-            value: (_position != null &&
-                _duration != null &&
-                _position!.inMilliseconds > 0 &&
-                _position!.inMilliseconds < _duration!.inMilliseconds)
-                ? _position!.inMilliseconds / _duration!.inMilliseconds
-                : 0.0,
+          Padding(
+            padding: EdgeInsets.only(bottom: 8.0.sp),
+            child: SliderTheme(
+              data: customSliderTheme,
+              child: Slider(
+                onChanged: (v) {
+                  final duration = _duration;
+                  if (duration == null) {
+                    return;
+                  }
+                  final position = v * duration.inMilliseconds;
+                  player.seek(Duration(milliseconds: position.round()));
+                },
+                value: (_position != null &&
+                    _duration != null &&
+                    _position!.inMilliseconds > 0 &&
+                    _position!.inMilliseconds < _duration!.inMilliseconds)
+                    ? _position!.inMilliseconds / _duration!.inMilliseconds
+                    : 0.0,
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -161,8 +168,8 @@ class _PlayerState extends State<Player> {
   }
 }
 
-SliderThemeData customSliderTheme = const SliderThemeData(
-  trackHeight: 4.0,
+SliderThemeData customSliderTheme = SliderThemeData(
+  trackHeight: 4.0.sp,
   thumbShape: RoundSliderThumbShape(enabledThumbRadius: 6),
   thumbColor: ResColors.primary,
   activeTrackColor: ResColors.primary,

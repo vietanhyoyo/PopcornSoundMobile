@@ -21,6 +21,8 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     isLoading.value = true;
+
+    //Get data
     getMovieListFromPage(1);
     getHotFilms();
   }

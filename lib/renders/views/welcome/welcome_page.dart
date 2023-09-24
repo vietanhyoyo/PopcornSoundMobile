@@ -4,16 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
-import 'package:popcorn_sound_mobile/setup/routes/routes.dart';
+import 'package:popcorn_sound_mobile/renders/controllers/welcome/welcome_controller.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends GetView<WelcomeController> {
   const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(seconds: 2), () {
-      Get.offNamed(AppRoutes.home);
-    });
+    //Show advertisement from AdsHelper
+    controller.initInterstitialAd();
     return Scaffold(
         backgroundColor: ResColors.primary,
         body: Center(child: Padding(

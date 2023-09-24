@@ -4,6 +4,7 @@ import 'package:popcorn_sound_mobile/renders/bindings/film_list/film_list_bindin
 import 'package:popcorn_sound_mobile/renders/bindings/film_search/film_search_binding.dart';
 import 'package:popcorn_sound_mobile/renders/bindings/home/home_binding.dart';
 import 'package:popcorn_sound_mobile/renders/bindings/setting/setting_binding.dart';
+import 'package:popcorn_sound_mobile/renders/bindings/welcome/welcome_binding.dart';
 import 'package:popcorn_sound_mobile/renders/views/film_detail/film_detail_page.dart';
 import 'package:popcorn_sound_mobile/renders/views/film_list/film_list_page.dart';
 import 'package:popcorn_sound_mobile/renders/views/film_search/film_search_page.dart';
@@ -21,6 +22,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.welcome,
       page: () => const WelcomePage(),
+      binding: WelcomeBinding(),
     ),
     GetPage(
       name: AppRoutes.home,

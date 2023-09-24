@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:popcorn_sound_mobile/utils/base_url.dart';
+import 'package:popcorn_sound_mobile/constants/base_url.dart';
 
 class ApiHelper extends GetConnect {
 

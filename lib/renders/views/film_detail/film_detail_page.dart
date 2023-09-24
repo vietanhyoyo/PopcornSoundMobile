@@ -1,4 +1,6 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/components/layouts/main_body/main_body.dart';
 import 'package:popcorn_sound_mobile/components/widgets/song_v_list/song_v_list.dart';
@@ -51,9 +53,10 @@ class FilmDetailPage extends GetView<FilmDetailController> {
                             onPressed: () {
                               Get.back();
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.arrow_back_outlined,
                               color: ResColors.white,
+                              size: 24.sp,
                             )),
                         SizedBox(
                           height: screenHeight / 10,
@@ -62,10 +65,10 @@ class FilmDetailPage extends GetView<FilmDetailController> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.all(
-                                  Radius.circular(screenWidth * 0.05)),
+                                  Radius.circular(screenWidth * 0.03)),
                               child: SizedBox(
                                 width: screenWidth / 2.2 - screenWidth * 0.025,
-                                height: (5 / 4) * screenWidth / 2 -
+                                height: (9 / 8) * screenWidth / 2 -
                                     screenWidth * 0.005,
                                 child: Image.network(
                                     controller.film.value.thumbnail!,
@@ -124,7 +127,7 @@ class FilmDetailPage extends GetView<FilmDetailController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Divider(),
-                            const Text(
+                            Text(
                               'Description',
                               style: ResText.movieTitle,
                             ),
@@ -149,7 +152,8 @@ class FilmDetailPage extends GetView<FilmDetailController> {
                                           color: isDarkMode
                                               ? ResColors.white
                                               : ResColors.black,
-                                          overflow: TextOverflow.visible),
+                                          overflow: TextOverflow.visible,
+                                      fontSize: 14.sp),
                                       value: controller.episodeSelect.value,
                                       onChanged: (newValue) async {
                                         controller.episodeSelect.value =
@@ -174,7 +178,7 @@ class FilmDetailPage extends GetView<FilmDetailController> {
                             : Container(),
                         controller.isSongLoading.value
                             ? SizedBox(
-                                height: 100,
+                                height: 100.sp,
                                 child: Center(
                                     child: CircularProgressIndicator(
                                   color: ResColors.primary,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/components/widgets/no_data/no_data.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
@@ -26,7 +27,7 @@ class SmallCardHListState extends State<SmallCardHList> {
         Text(widget.title ?? 'Hot Songs'),
         ResSpace.h8(),
         SizedBox(
-          height: 132,
+          height: 132.w,
           child: widget.items.length > 0
               ? ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -42,7 +43,7 @@ class SmallCardHListState extends State<SmallCardHList> {
                         child: Stack(
                           children: [
                             SizedBox(
-                              width: 100,
+                              width: 100.w,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -50,8 +51,8 @@ class SmallCardHListState extends State<SmallCardHList> {
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(ResDimens.d10)),
                                     child: SizedBox(
-                                      width: 100,
-                                      height: 100,
+                                      width: 100.w,
+                                      height: 100.w,
                                       child: Image.network(
                                           widget.items[index].thumbnail!,
                                           fit: BoxFit.cover),
