@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
 import 'package:popcorn_sound_mobile/setup/routes/routes.dart';
@@ -30,8 +31,11 @@ class MainScaffold extends StatelessWidget {
         ),
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
+          iconSize: 24.sp,
           currentIndex: currentIndex,
           showUnselectedLabels: true,
+          selectedLabelStyle: TextStyle(fontSize: ResDimens.d12.sp),
+          unselectedLabelStyle: TextStyle(fontSize: ResDimens.d12.sp),
           onTap: (index) {
             if (index == 0) {
               Get.offNamed(AppRoutes.home);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ResDimens {
   static const double d0 = 0.0;
@@ -27,86 +28,86 @@ class ResDimens {
 
 class ResSpace {
   static h4() {
-    return const SizedBox(
-      height: ResDimens.d4,
+    return SizedBox(
+      height: ResDimens.d4.sp,
     );
   }
 
   static h8() {
-    return const SizedBox(
-      height: ResDimens.d8,
+    return SizedBox(
+      height: ResDimens.d8.sp,
     );
   }
 
   static h16() {
-    return const SizedBox(
-      height: ResDimens.d16,
+    return SizedBox(
+      height: ResDimens.d16.sp,
     );
   }
 
   static h24() {
-    return const SizedBox(
-      height: ResDimens.d24,
+    return SizedBox(
+      height: ResDimens.d24.sp,
     );
   }
 
   static h30() {
-    return const SizedBox(
-      height: ResDimens.d30,
+    return SizedBox(
+      height: ResDimens.d30.sp,
     );
   }
 
   static h32() {
-    return const SizedBox(
-      height: ResDimens.d32,
+    return SizedBox(
+      height: ResDimens.d32.sp,
     );
   }
 
   static h40() {
-    return const SizedBox(
-      height: ResDimens.d40,
+    return SizedBox(
+      height: ResDimens.d40.sp,
     );
   }
 
   static h50() {
-    return const SizedBox(
-      height: ResDimens.d50,
+    return SizedBox(
+      height: ResDimens.d50.sp,
     );
   }
 
   static h200() {
-    return const SizedBox(
-      height: ResDimens.d50,
+    return SizedBox(
+      height: ResDimens.d50.sp,
     );
   }
 
   static w4() {
-    return const SizedBox(
-      width: ResDimens.d4,
+    return SizedBox(
+      width: ResDimens.d4.sp,
     );
   }
 
   static w8() {
-    return const SizedBox(
-      width: ResDimens.d8,
+    return SizedBox(
+      width: ResDimens.d8.sp,
     );
   }
 
   static w12() {
-    return const SizedBox(
-      width: ResDimens.d12,
+    return SizedBox(
+      width: ResDimens.d12.sp,
     );
   }
 
   static w16() {
-    return const SizedBox(
-      width: ResDimens.d16,
+    return SizedBox(
+      width: ResDimens.d16.sp,
     );
   }
 
   static w32() {
-    return const SizedBox(
-      width: ResDimens.d32,
+    return SizedBox(
+      width: ResDimens.d32.sp,
     );
   }
 }

@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/services/repository/home_repository.dart';
 import 'package:popcorn_sound_mobile/services/response/film_response.dart';
-import 'package:popcorn_sound_mobile/utils/ads_helper.dart';
 
-class HomeController extends GetxController with AdsHelper{
+class HomeController extends GetxController {
   //Api define
   final HomeRepository homeRepository = Get.find<HomeRepository>();
 
@@ -26,9 +25,6 @@ class HomeController extends GetxController with AdsHelper{
     //Get data
     getMovieListFromPage(1);
     getHotFilms();
-
-    //Show advertisement from AdsHelper
-    initInterstitialAd();
   }
 
   void getMovieListFromPage(int page) {
