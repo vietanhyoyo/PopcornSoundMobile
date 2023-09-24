@@ -46,11 +46,11 @@ class FilmDetailController extends GetxController {
       analytics.logEvent(name: "app_detail_film", parameters: {
         "film": arguments[0].slug,
       });
+    } else {
+      analytics.logEvent(name: "app_detail_film", parameters: {
+        "film": "No data",
+      });
     }
-
-    analytics.logEvent(name: "app_detail_film", parameters: {
-      "film": "No data",
-    });
 
     super.onInit();
   }
