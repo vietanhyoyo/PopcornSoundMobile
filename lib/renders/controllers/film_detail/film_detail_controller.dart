@@ -8,8 +8,9 @@ import 'package:popcorn_sound_mobile/services/response/episode_response.dart';
 import 'package:popcorn_sound_mobile/services/response/film_response.dart';
 import 'package:popcorn_sound_mobile/services/response/season_response.dart';
 import 'package:popcorn_sound_mobile/services/response/song_response.dart';
+import 'package:popcorn_sound_mobile/utils/ads_helper.dart';
 
-class FilmDetailController extends GetxController {
+class FilmDetailController extends GetxController with AdsHelper {
   //Api define
   final FilmDetailRepository filmDetailRepository =
       Get.find<FilmDetailRepository>();

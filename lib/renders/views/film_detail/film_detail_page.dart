@@ -22,6 +22,9 @@ class FilmDetailPage extends GetView<FilmDetailController> {
 
     var isDarkMode = Get.isDarkMode;
 
+    //Show advertisement from AdsHelper
+    controller.initInterstitialAd();
+
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(

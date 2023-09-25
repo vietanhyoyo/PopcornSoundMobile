@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:popcorn_sound_mobile/constants/res_colors.dart';
 import 'package:popcorn_sound_mobile/constants/res_dimens.dart';
 import 'package:popcorn_sound_mobile/renders/controllers/welcome/welcome_controller.dart';
+import 'package:popcorn_sound_mobile/setup/routes/routes.dart';
 
 class WelcomePage extends GetView<WelcomeController> {
   const WelcomePage({super.key});
@@ -12,7 +13,12 @@ class WelcomePage extends GetView<WelcomeController> {
   @override
   Widget build(BuildContext context) {
     //Show advertisement from AdsHelper
-    controller.initInterstitialAd();
+    // controller.initInterstitialAd();
+
+    Timer(Duration(seconds: 2), () {
+      print("time");
+      Get.offNamed(AppRoutes.home);
+    });
     return Scaffold(
         backgroundColor: ResColors.primary,
         body: Center(child: Padding(

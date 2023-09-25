@@ -14,9 +14,16 @@ class AdsConstant {
     interstitialAds: "ca-app-pub-2054952505259569/3131468987",
   );
 
-  static final String testKey = "ca-app-pub-3940256099942544/4411468910";
+  static final AdsKey _testAds = AdsKey(
+    appId: "",
+    openAppAds: "ca-app-pub-3940256099942544/4411468910",
+    interstitialAds: "ca-app-pub-3940256099942544/4411468910",
+  );
 
-  static AdsKey getAdsKey() {
+  // static final String testKey = "ca-app-pub-3940256099942544/4411468910";
+
+  static AdsKey getAdsKey({ bool isTest = true }) {
+    if (isTest) return _testAds;
     if (Platform.isAndroid) {
       return _androidAds; // Ad Unit ID cho Android
     } else if (Platform.isIOS) {

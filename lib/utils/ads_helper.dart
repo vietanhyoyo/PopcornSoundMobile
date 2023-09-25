@@ -9,11 +9,12 @@ mixin AdsHelper {
   RxBool isAdLoaded = RxBool(false);
   RewardedAd? rewardedAd;
   InterstitialAd? interstitialAd;
+  bool isTest = true; // change data when debug
 
   ///Init method define
   initRewardedAd() async {
     await RewardedAd.load(
-        adUnitId: AdsConstant.testKey,
+        adUnitId: AdsConstant.getAdsKey(isTest: isTest).interstitialAds,
         request: const AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
           onAdLoaded: (ad) {
@@ -35,7 +36,7 @@ mixin AdsHelper {
 
   initInterstitialAd() async {
     InterstitialAd.load(
-      adUnitId: AdsConstant.testKey,
+      adUnitId: AdsConstant.getAdsKey(isTest: isTest).interstitialAds,
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
           interstitialAd = ad;
